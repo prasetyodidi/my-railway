@@ -23,6 +23,7 @@ func main() {
 	e.GET("/get-order", GetOrder)
 	e.GET("/get-product", GetProduct)
 	e.GET("/get-city", GetCity)
+	e.GET("/hello/:name", GetGreeting)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
@@ -70,6 +71,16 @@ func GetProduct(c echo.Context) error {
 func GetCity(c echo.Context) error {
 	response := jsonResponse{
 		Data:   "Data City Berhasil di Get",
+		Status: true,
+	}
+
+	return c.JSON(http.StatusOK, response)
+}
+
+func GetGreeting(c echo.Context) error {
+	name := c.Param("name")
+	response := jsonResponse{
+		Data: "hello " + name,
 		Status: true,
 	}
 
